@@ -1,0 +1,79 @@
+{
+    "name": "@leonardommello/copilot-mcp-server",
+    "version": "1.0.2",
+    "description": "GitHub Copilot CLI integration for Model Context Protocol clients - Full MCP capabilities with Tools, Resources, and Prompts",
+    "license": "MIT",
+    "author": "Leonardo M. Mello <leonardommello>",
+    "homepage": "https://github.com/leonardommello/copilot-mcp-server",
+    "bugs": "https://github.com/leonardommello/copilot-mcp-server/issues",
+    "type": "module",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/leonardommello/copilot-mcp-server.git"
+    },
+    "bin": {
+        "copilot-mcp-server": "./dist/esm/examples/server/copilotMcpServer.js"
+    },
+    "main": "./dist/esm/examples/server/copilotMcpServer.js",
+    "engines": {
+        "node": ">=22.0.0"
+    },
+    "keywords": [
+        "mcp",
+        "model-context-protocol",
+        "github-copilot",
+        "copilot",
+        "ai",
+        "code-assistant",
+        "claude",
+        "vscode",
+        "cursor"
+    ],
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ],
+    "scripts": {
+        "build": "npm run build:esm && npm run build:cjs",
+        "build:esm": "node scripts/prepare-esm.js && tsc -p tsconfig.prod.json",
+        "build:cjs": "node scripts/prepare-cjs.js && tsc -p tsconfig.cjs.json",
+        "prepack": "npm run build",
+        "prepublishOnly": "npm run build",
+        "start": "node dist/esm/examples/server/copilotMcpServer.js",
+        "test": "node test-detailed.js"
+    },
+    "dependencies": {
+        "ajv": "^8.17.1",
+        "ajv-formats": "^3.0.1",
+        "content-type": "^1.0.5",
+        "cors": "^2.8.5",
+        "cross-spawn": "^7.0.5",
+        "eventsource": "^3.0.2",
+        "eventsource-parser": "^3.0.0",
+        "express": "^5.0.1",
+        "express-rate-limit": "^7.5.0",
+        "pkce-challenge": "^5.0.0",
+        "raw-body": "^3.0.0",
+        "zod": "^3.23.8",
+        "zod-to-json-schema": "^3.24.1"
+    },
+    "peerDependencies": {
+        "@cfworker/json-schema": "^4.1.1"
+    },
+    "peerDependenciesMeta": {
+        "@cfworker/json-schema": {
+            "optional": true
+        }
+    },
+    "devDependencies": {
+        "@cfworker/json-schema": "^4.1.1",
+        "@types/content-type": "^1.1.8",
+        "@types/cors": "^2.8.17",
+        "@types/cross-spawn": "^6.0.6",
+        "@types/eventsource": "^1.1.15",
+        "@types/express": "^5.0.0",
+        "@types/node": "^22.0.2",
+        "typescript": "^5.5.4"
+    }
+}
