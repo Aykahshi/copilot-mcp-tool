@@ -26,6 +26,77 @@ jobs:
             - run: npm test
             - run: npm run lint
 
+    create-release:
+        runs-on: ubuntu-latest
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        needs: build
+
+        permissions:
+            contents: write
+
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+                  token: ${{ secrets.GITHUB_TOKEN }}
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+                  cache: npm
+
+            - name: Configure Git
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "github-actions[bot]@users.noreply.github.com"
+
+            - name: Get current version
+              id: current-version
+              run: |
+                  CURRENT_VERSION=$(node -p "require('./package.json').version")
+                  echo "current=v${CURRENT_VERSION}" >> $GITHUB_OUTPUT
+                  echo "Current version: v${CURRENT_VERSION}"
+
+            - name: Check if current version tag exists
+              id: check-tag
+              run: |
+                  if git rev-parse "${{ steps.current-version.outputs.current }}" >/dev/null 2>&1; then
+                      echo "exists=true" >> $GITHUB_OUTPUT
+                      echo "Tag ${{ steps.current-version.outputs.current }} already exists, will increment version"
+                  else
+                      echo "exists=false" >> $GITHUB_OUTPUT
+                      echo "Tag ${{ steps.current-version.outputs.current }} does not exist"
+                  fi
+
+            - name: Bump version if tag exists
+              if: steps.check-tag.outputs.exists == 'true'
+              run: |
+                  npm version patch -m "chore: bump version to %s [skip ci]"
+                  git push origin main --follow-tags
+
+            - name: Create tag if doesn't exist
+              if: steps.check-tag.outputs.exists == 'false'
+              run: |
+                  VERSION="${{ steps.current-version.outputs.current }}"
+                  git tag "${VERSION}"
+                  git push origin "${VERSION}"
+
+            - name: Get final version
+              id: final-version
+              run: |
+                  FINAL_VERSION=$(node -p "require('./package.json').version")
+                  echo "version=v${FINAL_VERSION}" >> $GITHUB_OUTPUT
+                  echo "Final version: v${FINAL_VERSION}"
+
+            - name: Create Release
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  VERSION="${{ steps.final-version.outputs.version }}"
+                  gh release create "${VERSION}" \
+                      --title "Release ${VERSION}" \
+                      --generate-notes
+
     publish:
         runs-on: ubuntu-latest
         if: github.event_name == 'release'
@@ -41,11 +112,27 @@ jobs:
             - uses: actions/setup-node@v4
               with:
                   node-version: 22
-                  cache: npm
                   registry-url: 'https://registry.npmjs.org'
 
             - run: npm ci
+            - run: npm run build
 
-            - run: npm publish --provenance --access public
+            - name: Check if version exists on npm
+              id: check-version
+              run: |
+                  PACKAGE_NAME=$(node -p "require('./package.json').name")
+                  PACKAGE_VERSION=$(node -p "require('./package.json').version")
+
+                  if npm view "${PACKAGE_NAME}@${PACKAGE_VERSION}" version 2>/dev/null; then
+                      echo "exists=true" >> $GITHUB_OUTPUT
+                      echo "Version ${PACKAGE_VERSION} already exists on npm"
+                  else
+                      echo "exists=false" >> $GITHUB_OUTPUT
+                      echo "Version ${PACKAGE_VERSION} does not exist on npm"
+                  fi
+
+            - name: Publish to npm
+              if: steps.check-version.outputs.exists == 'false'
+              run: npm publish --provenance --access public
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
