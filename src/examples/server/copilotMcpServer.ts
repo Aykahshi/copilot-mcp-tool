@@ -10,12 +10,12 @@
  * - Completions: Code and command suggestions
  */
 
-import { spawn, ChildProcess } from 'child_process';
+import { spawn } from 'child_process';
 import { z } from 'zod';
 import { McpServer, ResourceTemplate } from '../../server/mcp.js';
 import { StdioServerTransport } from '../../server/stdio.js';
 import { CallToolResult } from '../../types.js';
-import { readFile, writeFile, mkdir, readdir } from 'fs/promises';
+import { mkdir } from 'fs/promises';
 import { existsSync } from 'fs';
 import { homedir } from 'os';
 import { join } from 'path';
