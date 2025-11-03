@@ -4,12 +4,12 @@
     "description": "GitHub Copilot CLI integration for Model Context Protocol clients - Full MCP capabilities with Tools, Resources, and Prompts",
     "license": "MIT",
     "author": "Leonardo M. Mello <leonardommello>",
-    "homepage": "https://github.com/leonardommello/copilot-mcp-server",
-    "bugs": "https://github.com/leonardommello/copilot-mcp-server/issues",
+    "homepage": "https://github.com/leonardommello/copilot-mcp-tool",
+    "bugs": "https://github.com/leonardommello/copilot-mcp-tool/issues",
     "type": "module",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/leonardommello/copilot-mcp-server.git"
+        "url": "git+https://github.com/leonardommello/copilot-mcp-tool.git"
     },
     "bin": {
         "copilot-mcp-server": "./dist/esm/examples/server/copilotMcpServer.js"
