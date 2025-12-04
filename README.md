@@ -519,15 +519,23 @@ find . -type f | wc -l
 
 ```javascript
 // Ask the same question to different models
-// GPT-5: More detailed technical explanations
+// GPT-5.1: More detailed technical explanations
 // Claude Sonnet 4.5: More concise, practical answers
 // Claude Haiku 4.5: Faster responses for simple queries
+// GPT-5.1-Codex: Specialized for code generation
+// GPT-5.1-Codex-Mini: Lightweight and faster model for quick responses
+// GPT-5-Mini: Unlimited model for Copilot Pro and above
+// GPT-4.1: Unlimited model for Copilot Pro and above
+// Gemini 3 Pro Preview: Alternative model for diverse perspectives
 ```
 
 **Example**:
 ```
-Use ask-copilot with model="gpt-5" and prompt="Explain async/await"
+Use ask-copilot with model="gpt-5.1" and prompt="Explain async/await"
 Use ask-copilot with model="claude-sonnet-4.5" and prompt="Explain async/await"
+Use ask-copilot with model="gpt-5.1-codex" and prompt="Explain async/await"
+Use ask-copilot with model="gpt-4.1" and prompt="Explain async/await"
+Use ask-copilot with model="gemini-3-pro-preview" and prompt="Explain async/await"
 ```
 
 ---
@@ -676,14 +684,23 @@ Use copilot-session-history to view conversation history
 ## AI Models
 
 Select from available models:
-- `claude-sonnet-4.5` (default)
-- `claude-sonnet-4`
-- `claude-haiku-4.5`
-- `gpt-5`
+- `claude-sonnet-4.5` (default) - Balanced performance and quality
+- `claude-haiku-4.5` - Faster, lightweight responses
+- `gpt-5.1` - Advanced reasoning and detailed explanations
+- `gpt-5.1-codex` - Specialized for code generation and debugging
+- `gpt-5.1-codex-mini` - Lightweight and faster variant of Codex
+- `gpt-5-mini` - Unlimited model for Copilot Pro and above
+- `gpt-4.1` - Unlimited model for Copilot Pro and above
+- `gemini-3-pro-preview` (Preview) - Alternative model for diverse perspectives
+
+**Unlimited Model**: `gpt-5-mini` and `gpt-4.1` are available with unlimited usage for GitHub Copilot Pro and above subscriptions.
+
+**Lightweight Models**: `claude-haiku-4.5` and `gpt-5.1-codex-mini` provide faster responses for quick tasks.
 
 Example:
 ```
-Use ask-copilot with model="gpt-5" and prompt="Explain async/await"
+Use ask-copilot with model="gpt-5.1" and prompt="Explain async/await"
+Use ask-copilot with model="gpt-5-mini" and prompt="Quick code review"
 ```
 
 ---

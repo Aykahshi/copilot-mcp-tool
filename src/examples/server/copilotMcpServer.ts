@@ -214,7 +214,7 @@ server.registerTool(
         inputSchema: {
             prompt: z.string().describe('The question or task to ask GitHub Copilot CLI'),
             context: z.string().optional().describe('Optional additional context (file paths, code snippets, etc.)'),
-            model: z.enum(['claude-sonnet-4.5', 'claude-sonnet-4', 'claude-haiku-4.5', 'gpt-5']).optional().describe('AI model to use'),
+            model: z.enum(['claude-sonnet-4.5', 'claude-haiku-4.5', 'gpt-5.1', 'gpt-5.1-codex-mini', 'gpt-5.1-codex', 'gpt-5-mini', 'gpt-4.1', 'gemini-3-pro-preview']).optional().describe('AI model to use'),
             allowAllTools: z.boolean().optional().describe('Allow all tools to run automatically without confirmation')
         }
     },
@@ -247,7 +247,7 @@ server.registerTool(
         description: 'Get detailed explanations of code or technical concepts',
         inputSchema: {
             code: z.string().describe('The code or concept to explain'),
-            model: z.enum(['claude-sonnet-4.5', 'claude-sonnet-4', 'claude-haiku-4.5', 'gpt-5']).optional().describe('AI model to use')
+            model: z.enum(['claude-sonnet-4.5', 'claude-haiku-4.5', 'gpt-5.1', 'gpt-5.1-codex-mini', 'gpt-5.1-codex', 'gpt-5-mini', 'gpt-4.1', 'gemini-3-pro-preview']).optional().describe('AI model to use')
         }
     },
     async ({ code, model }): Promise<CallToolResult> => {
@@ -279,7 +279,7 @@ server.registerTool(
         description: 'Get CLI command suggestions for specific tasks',
         inputSchema: {
             task: z.string().describe('The task you want to accomplish'),
-            model: z.enum(['claude-sonnet-4.5', 'claude-sonnet-4', 'claude-haiku-4.5', 'gpt-5']).optional().describe('AI model to use')
+            model: z.enum(['claude-sonnet-4.5', 'claude-haiku-4.5', 'gpt-5.1', 'gpt-5.1-codex-mini', 'gpt-5.1-codex', 'gpt-5-mini', 'gpt-4.1', 'gemini-3-pro-preview']).optional().describe('AI model to use')
         }
     },
     async ({ task, model }): Promise<CallToolResult> => {
