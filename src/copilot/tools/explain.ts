@@ -24,7 +24,11 @@ export function registerExplainTool(server: McpServer): void {
       description: 'Get detailed explanations of code or technical concepts',
       inputSchema: {
         code: z.string().describe('The code or concept to explain'),
-        model: z.enum(SUPPORTED_MODELS).optional().describe('AI model to use')
+        model: z
+          .enum(SUPPORTED_MODELS)
+          .optional()
+          .default('claude-sonnet-4.5')
+          .describe('AI model to use (default: claude-sonnet-4.5)')
       }
     },
     async ({ code, model }): Promise<CallToolResult> => {

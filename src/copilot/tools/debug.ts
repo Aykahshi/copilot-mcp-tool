@@ -11,6 +11,7 @@ import {
   createNotInstalledError,
   executeCopilotCommand
 } from '../cli.js';
+import { SUPPORTED_MODELS } from '../constants.js';
 
 /**
  * Register the copilot-debug tool
@@ -24,10 +25,15 @@ export function registerDebugTool(server: McpServer): void {
       inputSchema: {
         code: z.string().describe('The code with the error'),
         error: z.string().describe('The error message or description'),
-        context: z.string().optional().describe('Additional context about the error')
+        context: z.string().optional().describe('Additional context about the error'),
+        model: z
+          .enum(SUPPORTED_MODELS)
+          .optional()
+          .default('claude-haiku-4.5')
+          .describe('AI model to use (default: claude-haiku-4.5)')
       }
     },
-    async ({ code, error, context }): Promise<CallToolResult> => {
+    async ({ code, error, context, model }): Promise<CallToolResult> => {
       try {
         const isInstalled = await checkCopilotInstalled();
         if (!isInstalled) {
@@ -51,7 +57,7 @@ Please help me:
 3. Provide a fix
 4. Suggest how to prevent similar errors`;
 
-        const result = await executeCopilotCommand(prompt, { context });
+        const result = await executeCopilotCommand(prompt, { context, model });
         return { content: [{ type: 'text', text: result }] };
       } catch (error) {
         return createErrorResult(error);

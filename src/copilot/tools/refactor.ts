@@ -11,6 +11,7 @@ import {
   createNotInstalledError,
   executeCopilotCommand
 } from '../cli.js';
+import { SUPPORTED_MODELS } from '../constants.js';
 
 /**
  * Register the copilot-refactor tool
@@ -28,10 +29,15 @@ export function registerRefactorTool(server: McpServer): void {
           .optional()
           .describe(
             'Specific refactoring goal (e.g., "improve performance", "increase readability")'
-          )
+          ),
+        model: z
+          .enum(SUPPORTED_MODELS)
+          .optional()
+          .default('claude-haiku-4.5')
+          .describe('AI model to use (default: claude-haiku-4.5)')
       }
     },
-    async ({ code, goal }): Promise<CallToolResult> => {
+    async ({ code, goal, model }): Promise<CallToolResult> => {
       try {
         const isInstalled = await checkCopilotInstalled();
         if (!isInstalled) {
@@ -50,7 +56,7 @@ Provide:
 3. Benefits of the refactoring
 4. Any trade-offs or considerations`;
 
-        const result = await executeCopilotCommand(prompt);
+        const result = await executeCopilotCommand(prompt, { model });
         return { content: [{ type: 'text', text: result }] };
       } catch (error) {
         return createErrorResult(error);

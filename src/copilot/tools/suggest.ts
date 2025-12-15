@@ -24,7 +24,11 @@ export function registerSuggestTool(server: McpServer): void {
       description: 'Get CLI command suggestions for specific tasks',
       inputSchema: {
         task: z.string().describe('The task you want to accomplish'),
-        model: z.enum(SUPPORTED_MODELS).optional().describe('AI model to use')
+        model: z
+          .enum(SUPPORTED_MODELS)
+          .optional()
+          .default('claude-opus-4.5')
+          .describe('AI model to use (default: claude-opus-4.5)')
       }
     },
     async ({ task, model }): Promise<CallToolResult> => {

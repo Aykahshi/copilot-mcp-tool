@@ -29,7 +29,11 @@ export function registerAskTool(server: McpServer): void {
           .string()
           .optional()
           .describe('Optional additional context (file paths, code snippets, etc.)'),
-        model: z.enum(SUPPORTED_MODELS).optional().describe('AI model to use'),
+        model: z
+          .enum(SUPPORTED_MODELS)
+          .optional()
+          .default('claude-sonnet-4.5')
+          .describe('AI model to use (default: claude-sonnet-4.5)'),
         allowAllTools: z
           .boolean()
           .optional()
