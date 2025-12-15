@@ -33,7 +33,7 @@ jobs:
         # Only run on tag pushes (manual release)
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
         needs: build
-        environment: release
+        # environment: release  # Temporarily disabled for testing
 
         permissions:
             contents: write
