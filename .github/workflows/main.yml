@@ -87,6 +87,91 @@ jobs:
             - name: Build package
               run: npm run build
 
+            - name: Generate Changelog
+              id: changelog
+              run: |
+                  TAG_NAME="${{ steps.tag-version.outputs.tag }}"
+                  PREV_TAG=$(git describe --tags --abbrev=0 "${TAG_NAME}^" 2>/dev/null || echo "")
+                  
+                  if [ -z "$PREV_TAG" ]; then
+                      echo "No previous tag found, generating full changelog"
+                      COMMIT_RANGE="${TAG_NAME}"
+                  else
+                      echo "Previous tag: $PREV_TAG"
+                      COMMIT_RANGE="${PREV_TAG}..${TAG_NAME}"
+                  fi
+                  
+                  # Generate changelog with categories
+                  {
+                      echo "## 🎉 What's New"
+                      echo ""
+                      
+                      # Features
+                      FEATURES=$(git log $COMMIT_RANGE --pretty=format:"- %s" --grep="^feat" --grep="^feature" -i)
+                      if [ -n "$FEATURES" ]; then
+                          echo "### ✨ Features"
+                          echo "$FEATURES"
+                          echo ""
+                      fi
+                      
+                      # Bug Fixes
+                      FIXES=$(git log $COMMIT_RANGE --pretty=format:"- %s" --grep="^fix" -i)
+                      if [ -n "$FIXES" ]; then
+                          echo "### 🐛 Bug Fixes"
+                          echo "$FIXES"
+                          echo ""
+                      fi
+                      
+                      # Performance
+                      PERF=$(git log $COMMIT_RANGE --pretty=format:"- %s" --grep="^perf" -i)
+                      if [ -n "$PERF" ]; then
+                          echo "### ⚡ Performance"
+                          echo "$PERF"
+                          echo ""
+                      fi
+                      
+                      # Documentation
+                      DOCS=$(git log $COMMIT_RANGE --pretty=format:"- %s" --grep="^docs" -i)
+                      if [ -n "$DOCS" ]; then
+                          echo "### 📚 Documentation"
+                          echo "$DOCS"
+                          echo ""
+                      fi
+                      
+                      # CI/CD
+                      CI=$(git log $COMMIT_RANGE --pretty=format:"- %s" --grep="^ci" -i)
+                      if [ -n "$CI" ]; then
+                          echo "### 🔧 CI/CD"
+                          echo "$CI"
+                          echo ""
+                      fi
+                      
+                      # Refactoring
+                      REFACTOR=$(git log $COMMIT_RANGE --pretty=format:"- %s" --grep="^refactor" -i)
+                      if [ -n "$REFACTOR" ]; then
+                          echo "### ♻️ Refactoring"
+                          echo "$REFACTOR"
+                          echo ""
+                      fi
+                      
+                      # Other changes
+                      OTHER=$(git log $COMMIT_RANGE --pretty=format:"- %s" --invert-grep --grep="^feat" --grep="^fix" --grep="^perf" --grep="^docs" --grep="^ci" --grep="^refactor" -i)
+                      if [ -n "$OTHER" ]; then
+                          echo "### 🔨 Other Changes"
+                          echo "$OTHER"
+                          echo ""
+                      fi
+                      
+                      # Full changelog link
+                      if [ -n "$PREV_TAG" ]; then
+                          echo "---"
+                          echo ""
+                          echo "**Full Changelog**: https://github.com/${{ github.repository }}/compare/${PREV_TAG}...${TAG_NAME}"
+                      fi
+                  } > /tmp/changelog.md
+                  
+                  cat /tmp/changelog.md
+
             - name: Create Release
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -94,7 +179,7 @@ jobs:
                   TAG_NAME="${{ steps.tag-version.outputs.tag }}"
                   gh release create "${TAG_NAME}" \
                       --title "Release ${TAG_NAME}" \
-                      --generate-notes
+                      --notes-file /tmp/changelog.md
 
             - name: Check if version exists on npm
               id: check-npm-version
