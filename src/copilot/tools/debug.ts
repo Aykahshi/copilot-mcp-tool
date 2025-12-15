@@ -11,7 +11,7 @@ import {
   createNotInstalledError,
   executeCopilotCommand
 } from '../cli.js';
-import { SUPPORTED_MODELS } from '../constants.js';
+import { SUPPORTED_MODELS, getDefaultModel } from '../constants.js';
 
 /**
  * Register the copilot-debug tool
@@ -29,8 +29,7 @@ export function registerDebugTool(server: McpServer): void {
         model: z
           .enum(SUPPORTED_MODELS)
           .optional()
-          .default('claude-haiku-4.5')
-          .describe('AI model to use (default: claude-haiku-4.5)')
+          .describe(`AI model to use (default: ${getDefaultModel('debug')})`)
       }
     },
     async ({ code, error, context, model }): Promise<CallToolResult> => {
@@ -57,7 +56,8 @@ Please help me:
 3. Provide a fix
 4. Suggest how to prevent similar errors`;
 
-        const result = await executeCopilotCommand(prompt, { context, model });
+        const effectiveModel = model || getDefaultModel('debug');
+        const result = await executeCopilotCommand(prompt, { context, model: effectiveModel });
         return { content: [{ type: 'text', text: result }] };
       } catch (error) {
         return createErrorResult(error);

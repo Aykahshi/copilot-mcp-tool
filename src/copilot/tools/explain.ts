@@ -11,7 +11,7 @@ import {
   createNotInstalledError,
   executeCopilotCommand
 } from '../cli.js';
-import { SUPPORTED_MODELS } from '../constants.js';
+import { SUPPORTED_MODELS, getDefaultModel } from '../constants.js';
 
 /**
  * Register the copilot-explain tool
@@ -27,8 +27,7 @@ export function registerExplainTool(server: McpServer): void {
         model: z
           .enum(SUPPORTED_MODELS)
           .optional()
-          .default('claude-sonnet-4.5')
-          .describe('AI model to use (default: claude-sonnet-4.5)')
+          .describe(`AI model to use (default: ${getDefaultModel('explain')})`)
       }
     },
     async ({ code, model }): Promise<CallToolResult> => {
@@ -39,7 +38,8 @@ export function registerExplainTool(server: McpServer): void {
         }
 
         const prompt = `Please explain this code:\n\n${code}`;
-        const result = await executeCopilotCommand(prompt, { model });
+        const effectiveModel = model || getDefaultModel('explain');
+        const result = await executeCopilotCommand(prompt, { model: effectiveModel });
         return { content: [{ type: 'text', text: result }] };
       } catch (error) {
         return createErrorResult(error);

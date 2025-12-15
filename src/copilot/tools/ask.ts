@@ -11,7 +11,7 @@ import {
   createNotInstalledError,
   executeCopilotCommand
 } from '../cli.js';
-import { SUPPORTED_MODELS } from '../constants.js';
+import { SUPPORTED_MODELS, getDefaultModel } from '../constants.js';
 
 /**
  * Register the ask-copilot tool
@@ -32,8 +32,7 @@ export function registerAskTool(server: McpServer): void {
         model: z
           .enum(SUPPORTED_MODELS)
           .optional()
-          .default('claude-sonnet-4.5')
-          .describe('AI model to use (default: claude-sonnet-4.5)'),
+          .describe(`AI model to use (default: ${getDefaultModel('ask')})`),
         allowAllTools: z
           .boolean()
           .optional()
@@ -54,9 +53,10 @@ export function registerAskTool(server: McpServer): void {
           return createNotInstalledError();
         }
 
+        const effectiveModel = model || getDefaultModel('ask');
         const result = await executeCopilotCommand(prompt, {
           context,
-          model,
+          model: effectiveModel,
           allowAllTools,
           cwd
         });

@@ -11,7 +11,7 @@ import {
   createNotInstalledError,
   executeCopilotCommand
 } from '../cli.js';
-import { SUPPORTED_MODELS } from '../constants.js';
+import { SUPPORTED_MODELS, getDefaultModel } from '../constants.js';
 
 /**
  * Register the copilot-review tool
@@ -31,8 +31,7 @@ export function registerReviewTool(server: McpServer): void {
         model: z
           .enum(SUPPORTED_MODELS)
           .optional()
-          .default('gpt-4.1')
-          .describe('AI model to use (default: gpt-4.1)')
+          .describe(`AI model to use (default: ${getDefaultModel('review')})`)
       }
     },
     async ({ code, focusAreas, model }): Promise<CallToolResult> => {
@@ -58,7 +57,8 @@ ${focusAreas && focusAreas.length > 0 ? `Focus areas: ${focusAreas.join(', ')}` 
 
 Provide specific, actionable feedback.`;
 
-        const result = await executeCopilotCommand(prompt, { model });
+        const effectiveModel = model || getDefaultModel('review');
+        const result = await executeCopilotCommand(prompt, { model: effectiveModel });
         return { content: [{ type: 'text', text: result }] };
       } catch (error) {
         return createErrorResult(error);

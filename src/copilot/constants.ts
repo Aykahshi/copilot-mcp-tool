@@ -26,6 +26,61 @@ export const SUPPORTED_MODELS = [
 export type SupportedModel = (typeof SUPPORTED_MODELS)[number];
 
 /**
+ * Model preference types
+ */
+export type ModelPreference = 'claude' | 'gpt';
+
+/**
+ * Default models configuration by preference
+ */
+export const MODEL_DEFAULTS = {
+  claude: {
+    ask: 'claude-sonnet-4.5',
+    explain: 'claude-sonnet-4.5',
+    suggest: 'claude-opus-4.5',
+    debug: 'claude-haiku-4.5',
+    refactor: 'claude-haiku-4.5',
+    review: 'gpt-4.1',
+    testGenerate: 'claude-sonnet-4.5'
+  },
+  gpt: {
+    ask: 'gpt-5.1-codex-max',
+    explain: 'gpt-5.1-codex',
+    suggest: 'gpt-5.1-codex-max',
+    debug: 'gpt-5.1-codex-mini',
+    refactor: 'gpt-5.1-codex-mini',
+    review: 'gpt-4.1',
+    testGenerate: 'gpt-5.1-codex'
+  }
+} as const;
+
+/**
+ * Global model preference (can be set at startup)
+ */
+let currentModelPreference: ModelPreference = 'claude';
+
+/**
+ * Set the global model preference
+ */
+export function setModelPreference(preference: ModelPreference): void {
+  currentModelPreference = preference;
+}
+
+/**
+ * Get the current model preference
+ */
+export function getModelPreference(): ModelPreference {
+  return currentModelPreference;
+}
+
+/**
+ * Get default model for a specific tool based on current preference
+ */
+export function getDefaultModel(tool: keyof typeof MODEL_DEFAULTS.claude): SupportedModel {
+  return MODEL_DEFAULTS[currentModelPreference][tool] as SupportedModel;
+}
+
+/**
  * Directory paths for Copilot data
  */
 export const PATHS = {

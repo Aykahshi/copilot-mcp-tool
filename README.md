@@ -43,6 +43,39 @@ Add to your configuration file:
 }
 ```
 
+**Optional: Specify model preference**
+
+You can use the `--prefer` flag to choose between Claude or GPT models as defaults:
+
+```json
+{
+  "mcpServers": {
+    "copilot": {
+      "command": "npx",
+      "args": ["-y", "@aykahshi/copilot-mcp-server", "--prefer", "gpt"]
+    }
+  }
+}
+```
+
+Available preferences:
+- `--prefer claude` (default): Uses Claude models (Sonnet 4.5, Opus 4.5, Haiku 4.5)
+- `--prefer gpt`: Uses GPT models (gpt-5.1-codex, gpt-5.1-codex-max, gpt-5.1-codex-mini, gpt-4.1)
+
+**Model defaults by preference:**
+
+| Tool | `--prefer claude` | `--prefer gpt` |
+|------|-------------------|----------------|
+| ask-copilot | claude-sonnet-4.5 | gpt-5.1-codex-max |
+| copilot-explain | claude-sonnet-4.5 | gpt-5.1-codex |
+| copilot-suggest | claude-opus-4.5 | gpt-5.1-codex-max |
+| copilot-debug | claude-haiku-4.5 | gpt-5.1-codex-mini |
+| copilot-refactor | claude-haiku-4.5 | gpt-5.1-codex-mini |
+| copilot-review | gpt-4.1 | gpt-4.1 |
+| copilot-test-generate | claude-sonnet-4.5 | gpt-5.1-codex |
+
+> **Note:** You can still override the default model for any tool by specifying the `model` parameter in individual tool calls.
+
 ### Prerequisites
 
 You need GitHub Copilot CLI installed and authenticated:

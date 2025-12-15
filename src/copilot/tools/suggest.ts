@@ -11,7 +11,7 @@ import {
   createNotInstalledError,
   executeCopilotCommand
 } from '../cli.js';
-import { SUPPORTED_MODELS } from '../constants.js';
+import { SUPPORTED_MODELS, getDefaultModel } from '../constants.js';
 
 /**
  * Register the copilot-suggest tool
@@ -27,8 +27,7 @@ export function registerSuggestTool(server: McpServer): void {
         model: z
           .enum(SUPPORTED_MODELS)
           .optional()
-          .default('claude-opus-4.5')
-          .describe('AI model to use (default: claude-opus-4.5)')
+          .describe(`AI model to use (default: ${getDefaultModel('suggest')})`)
       }
     },
     async ({ task, model }): Promise<CallToolResult> => {
@@ -39,7 +38,8 @@ export function registerSuggestTool(server: McpServer): void {
         }
 
         const prompt = `Suggest a command for: ${task}`;
-        const result = await executeCopilotCommand(prompt, { model });
+        const effectiveModel = model || getDefaultModel('suggest');
+        const result = await executeCopilotCommand(prompt, { model: effectiveModel });
         return { content: [{ type: 'text', text: result }] };
       } catch (error) {
         return createErrorResult(error);
