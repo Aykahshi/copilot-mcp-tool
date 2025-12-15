@@ -10,6 +10,10 @@
 
 A Model Context Protocol (MCP) server that integrates GitHub Copilot CLI with MCP clients.
 
+> **📣 Important Notice**
+>
+> Thanks to [@leonardommello](https://github.com/leonardommello/copilot-mcp-tool) for the original work. This is an actively maintained fork to keep the project up-to-date with the latest Copilot features and supported models.
+
 <img src=".github/img/github.svg" alt="GitHub Copilot MCP Server" /></i>
 
 ## Features
@@ -18,6 +22,9 @@ A Model Context Protocol (MCP) server that integrates GitHub Copilot CLI with MC
 - **2 Resources** - Session history and management
 - **3 Prompts** - Workflow templates for common tasks
 - **Full MCP Support** - Compatible with Claude Desktop, Claude Code, Cline, and more
+- **Quick Commands** - Shortcut commands for rapid workflow (see below)
+
+---
 
 ## Quick Start
 
@@ -30,7 +37,7 @@ Add to your configuration file:
   "mcpServers": {
     "copilot": {
       "command": "npx",
-      "args": ["-y", "@leonardommello/copilot-mcp-server"]
+      "args": ["-y", "@aykahshi/copilot-mcp-server"]
     }
   }
 }
@@ -43,6 +50,34 @@ You need GitHub Copilot CLI installed and authenticated:
 ```bash
 npm install -g @github/copilot
 copilot /login
+```
+
+---
+
+## Hello World Example
+
+Once configured, here's a simple way to get started:
+
+**In Claude Desktop (or your MCP client):**
+
+```
+Use ask-copilot with prompt="Write a simple Hello World program in JavaScript"
+```
+
+**Response:**
+```javascript
+console.log("Hello, World!");
+```
+
+That's it! You can now use all the Copilot tools through your AI client.
+
+**More examples:**
+```
+Use copilot-explain to explain this code: console.log("Hello, World!");
+
+Use copilot-suggest for task="List files in current directory"
+
+Use copilot-debug with code="console.log(messge);" and error="ReferenceError: messge is not defined"
 ```
 
 ---
@@ -72,16 +107,6 @@ copilot /login
 
 ---
 
-## Prompts
-
-| Prompt | Description | Arguments |
-|--------|-------------|-----------|
-| **code-review-template** | Structured code review template | `code`, `language` |
-| **debug-template** | Debug assistance template | `code`, `error`, `context` |
-| **refactor-template** | Code refactoring template | `code`, `goal` |
-
----
-
 ## 🔌 AI Client Integration
 
 This MCP server works with **any MCP-compatible client**. Below are detailed setup instructions for popular AI coding assistants.
@@ -101,7 +126,7 @@ Claude Desktop is the most tested and recommended client for this MCP server.
   "mcpServers": {
     "copilot": {
       "command": "npx",
-      "args": ["-y", "@leonardommello/copilot-mcp-server"]
+      "args": ["-y", "@aykahshi/copilot-mcp-server"]
     }
   }
 }
@@ -109,7 +134,7 @@ Claude Desktop is the most tested and recommended client for this MCP server.
 
 **Method 2: Global Installation**
 ```bash
-npm install -g @leonardommello/copilot-mcp-server
+npm install -g @aykahshi/copilot-mcp-server
 ```
 
 Then add to config:
@@ -129,7 +154,7 @@ Then add to config:
   "mcpServers": {
     "copilot": {
       "command": "node",
-      "args": ["/absolute/path/to/copilot-mcp-tool/dist/esm/examples/server/copilotMcpServer.js"]
+      "args": ["/absolute/path/to/copilot-mcp-tool/dist/esm/copilot/index.js"]
     }
   }
 }
@@ -149,10 +174,10 @@ Claude Code provides the fastest setup experience via CLI.
 **Quick Setup:**
 ```bash
 # Using npx (no installation)
-claude mcp add copilot -- npx -y @leonardommello/copilot-mcp-server
+claude mcp add copilot -- npx -y @aykahshi/copilot-mcp-server
 
 # Or with global installation
-npm install -g @leonardommello/copilot-mcp-server
+npm install -g @aykahshi/copilot-mcp-server
 claude mcp add copilot copilot-mcp-server
 ```
 
@@ -188,7 +213,7 @@ Edit `~/.cursor/mcp.json` (create if it doesn't exist):
   "mcpServers": {
     "copilot": {
       "command": "npx",
-      "args": ["-y", "@leonardommello/copilot-mcp-server"]
+      "args": ["-y", "@aykahshi/copilot-mcp-server"]
     }
   }
 }
@@ -199,7 +224,7 @@ Edit `~/.cursor/mcp.json` (create if it doesn't exist):
 2. Search for "MCP"
 3. Click "Add MCP Server"
 4. Name: `copilot`
-5. Command: `npx -y @leonardommello/copilot-mcp-server`
+5. Command: `npx -y @aykahshi/copilot-mcp-server`
 
 ---
 
@@ -219,7 +244,7 @@ Edit `~/.cursor/mcp.json` (create if it doesn't exist):
   "mcpServers": {
     "copilot": {
       "command": "npx",
-      "args": ["-y", "@leonardommello/copilot-mcp-server"]
+      "args": ["-y", "@aykahshi/copilot-mcp-server"]
     }
   }
 }
@@ -231,7 +256,7 @@ Edit `~/.cursor/mcp.json` (create if it doesn't exist):
   "cline.mcpServers": {
     "copilot": {
       "command": "npx",
-      "args": ["-y", "@leonardommello/copilot-mcp-server"]
+      "args": ["-y", "@aykahshi/copilot-mcp-server"]
     }
   }
 }
@@ -250,7 +275,7 @@ Zed has native MCP support built-in.
   "mcpServers": {
     "copilot": {
       "command": "npx",
-      "args": ["-y", "@leonardommello/copilot-mcp-server"]
+      "args": ["-y", "@aykahshi/copilot-mcp-server"]
     }
   }
 }
@@ -259,7 +284,7 @@ Zed has native MCP support built-in.
 **Or use Zed's UI:**
 1. Open Zed Settings (Cmd/Ctrl + ,)
 2. Go to "Extensions" → "MCP"
-3. Add server with command: `npx -y @leonardommello/copilot-mcp-server`
+3. Add server with command: `npx -y @aykahshi/copilot-mcp-server`
 
 ---
 
@@ -272,7 +297,7 @@ Zed has native MCP support built-in.
   "mcpServers": {
     "copilot": {
       "command": "npx",
-      "args": ["-y", "@leonardommello/copilot-mcp-server"]
+      "args": ["-y", "@aykahshi/copilot-mcp-server"]
     }
   }
 }
@@ -286,13 +311,13 @@ Gemini CLI supports both project-wide and global MCP server installation.
 
 **Global Installation:**
 ```bash
-gemini mcp add copilot -- npx -y @leonardommello/copilot-mcp-server
+gemini mcp add copilot -- npx -y @aykahshi/copilot-mcp-server
 ```
 
 **Project-Specific:**
 ```bash
 # In your project directory
-gemini mcp add --project copilot -- npx -y @leonardommello/copilot-mcp-server
+gemini mcp add --project copilot -- npx -y @aykahshi/copilot-mcp-server
 ```
 
 **Verify:**
@@ -313,7 +338,7 @@ For IntelliJ IDEA, PyCharm, WebStorm, etc.
 4. Configure:
    - **Name**: `copilot`
    - **Command**: `npx`
-   - **Arguments**: `-y @leonardommello/copilot-mcp-server`
+   - **Arguments**: `-y @aykahshi/copilot-mcp-server`
 
 ---
 
@@ -326,7 +351,7 @@ This server is compatible with **any MCP-compliant client**. Generic configurati
   "mcpServers": {
     "copilot": {
       "command": "npx",
-      "args": ["-y", "@leonardommello/copilot-mcp-server"]
+      "args": ["-y", "@aykahshi/copilot-mcp-server"]
     }
   }
 }
@@ -514,32 +539,6 @@ find . -type f | wc -l
 
 ---
 
-### 7. Multi-Model Support
-**Compare responses across AI models**:
-
-```javascript
-// Ask the same question to different models
-// GPT-5.1: More detailed technical explanations
-// Claude Sonnet 4.5: More concise, practical answers
-// Claude Haiku 4.5: Faster responses for simple queries
-// GPT-5.1-Codex: Specialized for code generation
-// GPT-5.1-Codex-Mini: Lightweight and faster model for quick responses
-// GPT-5-Mini: Unlimited model for Copilot Pro and above
-// GPT-4.1: Unlimited model for Copilot Pro and above
-// Gemini 3 Pro Preview: Alternative model for diverse perspectives
-```
-
-**Example**:
-```
-Use ask-copilot with model="gpt-5.1" and prompt="Explain async/await"
-Use ask-copilot with model="claude-sonnet-4.5" and prompt="Explain async/await"
-Use ask-copilot with model="gpt-5.1-codex" and prompt="Explain async/await"
-Use ask-copilot with model="gpt-4.1" and prompt="Explain async/await"
-Use ask-copilot with model="gemini-3-pro-preview" and prompt="Explain async/await"
-```
-
----
-
 ## 📚 Detailed Tool Examples
 
 ### ask-copilot
@@ -684,22 +683,25 @@ Use copilot-session-history to view conversation history
 ## AI Models
 
 Select from available models:
-- `claude-sonnet-4.5` (default) - Balanced performance and quality
-- `claude-haiku-4.5` - Faster, lightweight responses
-- `gpt-5.1` - Advanced reasoning and detailed explanations
-- `gpt-5.1-codex` - Specialized for code generation and debugging
-- `gpt-5.1-codex-mini` - Lightweight and faster variant of Codex
-- `gpt-5-mini` - Unlimited model for Copilot Pro and above
-- `gpt-4.1` - Unlimited model for Copilot Pro and above
-- `gemini-3-pro-preview` (Preview) - Alternative model for diverse perspectives
+- `claude-sonnet-4.5` (default)
+- `claude-opus-4.5`
+- `claude-haiku-4.5`
+- `gpt-5.1`
+- `gpt-5.1-codex`
+- `gpt-5.1-codex-max`
+- `gpt-5.1-codex-mini`
+- `gpt-5.2`
+- `gpt-5-mini`
+- `gpt-4.1`
+- `gemini-3-pro-preview`
 
-**Unlimited Model**: `gpt-5-mini` and `gpt-4.1` are available with unlimited usage for GitHub Copilot Pro and above subscriptions.
+You can see all available models via copilot cli with `/model` command.
 
-**Lightweight Models**: `claude-haiku-4.5` and `gpt-5.1-codex-mini` provide faster responses for quick tasks.
+**Unlimited Model (0x in Copilot usage)**: `gpt-5-mini` and `gpt-4.1` are available with unlimited usage for GitHub Copilot Pro and above subscriptions.
 
 Example:
 ```
-Use ask-copilot with model="gpt-5.1" and prompt="Explain async/await"
+Use ask-copilot with model="claude-opus-4.5" and prompt="Explain async/await"
 Use ask-copilot with model="gpt-5-mini" and prompt="Quick code review"
 ```
 
@@ -758,7 +760,7 @@ nvm use 22
 **❌ "MCP server not responding"**
 ```bash
 # Test the server directly
-npx -y @leonardommello/copilot-mcp-server
+npx -y @aykahshi/copilot-mcp-server
 
 # Check Claude Desktop logs
 # macOS: ~/Library/Logs/Claude/
@@ -768,7 +770,7 @@ npx -y @leonardommello/copilot-mcp-server
 **❌ "Permission denied" on Windows**
 ```bash
 # Run as administrator or use npx without global install
-npx -y @leonardommello/copilot-mcp-server
+npx -y @aykahshi/copilot-mcp-server
 ```
 
 ---
@@ -801,7 +803,7 @@ A: No, both GitHub Copilot and MCP clients require internet connection.
 
 ```bash
 # Clone the repository
-git clone https://github.com/leonardommello/copilot-mcp-server.git
+git clone https://github.com/Aykahshi/copilot-mcp-server.git
 cd copilot-mcp-server
 
 # Install dependencies
@@ -830,15 +832,19 @@ Contributions are welcome! Please:
 ### Project Structure
 
 ```
-copilot-mcp-server/
-├── src/
-│   ├── examples/
-│   │   └── server/
-│   │       └── copilotMcpServer.ts  # Main MCP server implementation
-│   └── ...                          # MCP SDK core files
-├── dist/                            # Compiled output
-├── scripts/                         # Build scripts
-└── package.json
+src/
+├── copilot/          # Main Copilot CLI integration
+│   ├── index.ts      # Entry point
+│   ├── server.ts     # Server configuration
+│   ├── cli.ts        # Copilot CLI execution
+│   ├── session.ts    # Session management
+│   ├── constants.ts  # Configuration & models
+│   ├── types.ts      # Type definitions
+│   ├── tools/        # MCP Tools
+│   └── resources/    # MCP Resources
+├── server/           # MCP Server core
+├── shared/           # Shared utilities
+└── types.ts          # Global types
 ```
 
 ---
@@ -860,9 +866,9 @@ Learn more at [modelcontextprotocol.io](https://modelcontextprotocol.io)
 
 ## Links
 
-- 📦 **npm Package**: https://www.npmjs.com/package/@leonardommello/copilot-mcp-server
-- 💻 **GitHub Repository**: https://github.com/leonardommello/copilot-mcp-server
-- 🐛 **Report Issues**: https://github.com/leonardommello/copilot-mcp-server/issues
+- 📦 **npm Package**: https://www.npmjs.com/package/@aykahshi/copilot-mcp-server
+- 💻 **GitHub Repository**: https://github.com/Aykahshi/copilot-mcp-tool
+- 🐛 **Report Issues**: https://github.com/Aykahshi/copilot-mcp-tool/issues
 - 🤖 **GitHub Copilot**: https://github.com/features/copilot
 - 🔗 **Model Context Protocol**: https://modelcontextprotocol.io
 
@@ -874,7 +880,8 @@ MIT License - see [LICENSE](LICENSE) file for details
 
 ## Author
 
-Created by **Leonardo M. Mello** ([@leonardommello](https://github.com/leonardommello))
+Original created by **Leonardo M. Mello** ([@leonardommello](https://github.com/leonardommello))
+Forked and maintained by **Aykahshi** ([@Aykahshi](https://github.com/Aykahshi))
 
 ---
 
@@ -882,6 +889,6 @@ Created by **Leonardo M. Mello** ([@leonardommello](https://github.com/leonardom
 
 **Built with ❤️ using the [Model Context Protocol](https://modelcontextprotocol.io)**
 
-If this project helped you, please consider giving it a ⭐ on [GitHub](https://github.com/leonardommello/copilot-mcp-server)!
+If this project helped you, please consider giving it a ⭐ on [GitHub](https://github.com/Aykahshi/copilot-mcp-tool)!
 
 </div>
