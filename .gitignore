@@ -144,3 +144,7 @@ FEATURES.md
 CLEANUP.md
 TEST_RESULTS.md
 PUBLISH.md
+
+# Local development configuration (do not commit)
+.claude/
+AGENTS.md
