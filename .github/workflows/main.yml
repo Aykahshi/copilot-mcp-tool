@@ -32,7 +32,7 @@ jobs:
 
         permissions:
             contents: write
-            id-token: write
+            id-token: write  # Required for OIDC / Trusted Publishers
 
         steps:
             - uses: actions/checkout@v4
@@ -50,6 +50,10 @@ jobs:
               run: |
                   git config user.name "github-actions[bot]"
                   git config user.email "github-actions[bot]@users.noreply.github.com"
+
+            # Ensure npm 11.5.1 or later for Trusted Publishers support
+            - name: Update npm to latest version
+              run: npm install -g npm@latest
 
             - name: Install dependencies
               run: npm ci
@@ -118,8 +122,8 @@ jobs:
                       echo "Version ${PACKAGE_VERSION} does not exist on npm"
                   fi
 
-            - name: Publish to npm
+            # Publish using OIDC (Trusted Publishers)
+            # No NPM_TOKEN needed - authentication via id-token: write permission
+            - name: Publish to npm (Trusted Publishers)
               if: steps.check-npm-version.outputs.exists == 'false'
-              run: npm publish --provenance --access public
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+              run: npm publish --access public
