@@ -1,7 +1,11 @@
+name: CI/CD Pipeline
+
 on:
     push:
         branches:
             - main
+        tags:
+            - 'v*'
     pull_request:
 
 concurrency:
@@ -26,7 +30,8 @@ jobs:
 
     release-and-publish:
         runs-on: ubuntu-latest
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        # Only run on tag pushes (manual release)
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
         needs: build
         environment: release
 
@@ -58,43 +63,26 @@ jobs:
             - name: Install dependencies
               run: npm ci
 
-            - name: Get current version
-              id: current-version
+            - name: Get version from tag
+              id: tag-version
               run: |
-                  CURRENT_VERSION=$(node -p "require('./package.json').version")
-                  echo "current=v${CURRENT_VERSION}" >> $GITHUB_OUTPUT
-                  echo "Current version: v${CURRENT_VERSION}"
+                  TAG_NAME=${GITHUB_REF#refs/tags/}
+                  echo "tag=${TAG_NAME}" >> $GITHUB_OUTPUT
+                  echo "version=${TAG_NAME#v}" >> $GITHUB_OUTPUT
+                  echo "Tag: ${TAG_NAME}, Version: ${TAG_NAME#v}"
 
-            - name: Check if current version tag exists
-              id: check-tag
+            - name: Verify package.json version matches tag
               run: |
-                  if git rev-parse "${{ steps.current-version.outputs.current }}" >/dev/null 2>&1; then
-                      echo "exists=true" >> $GITHUB_OUTPUT
-                      echo "Tag ${{ steps.current-version.outputs.current }} already exists, will increment version"
-                  else
-                      echo "exists=false" >> $GITHUB_OUTPUT
-                      echo "Tag ${{ steps.current-version.outputs.current }} does not exist"
+                  PACKAGE_VERSION=$(node -p "require('./package.json').version")
+                  TAG_VERSION="${{ steps.tag-version.outputs.version }}"
+                  
+                  if [ "$PACKAGE_VERSION" != "$TAG_VERSION" ]; then
+                      echo "❌ Error: package.json version ($PACKAGE_VERSION) does not match tag version ($TAG_VERSION)"
+                      echo "Please update package.json version to match the tag before creating the release."
+                      exit 1
                   fi
-
-            - name: Bump version if tag exists
-              if: steps.check-tag.outputs.exists == 'true'
-              run: |
-                  npm version patch -m "chore: bump version to %s [skip ci]"
-                  git push origin main --follow-tags
-
-            - name: Create tag if doesn't exist
-              if: steps.check-tag.outputs.exists == 'false'
-              run: |
-                  VERSION="${{ steps.current-version.outputs.current }}"
-                  git tag "${VERSION}"
-                  git push origin "${VERSION}"
-
-            - name: Get final version
-              id: final-version
-              run: |
-                  FINAL_VERSION=$(node -p "require('./package.json').version")
-                  echo "version=v${FINAL_VERSION}" >> $GITHUB_OUTPUT
-                  echo "Final version: v${FINAL_VERSION}"
+                  
+                  echo "✅ Version check passed: $PACKAGE_VERSION"
 
             - name: Build package
               run: npm run build
@@ -103,9 +91,9 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
-                  VERSION="${{ steps.final-version.outputs.version }}"
-                  gh release create "${VERSION}" \
-                      --title "Release ${VERSION}" \
+                  TAG_NAME="${{ steps.tag-version.outputs.tag }}"
+                  gh release create "${TAG_NAME}" \
+                      --title "Release ${TAG_NAME}" \
                       --generate-notes
 
             - name: Check if version exists on npm
@@ -116,10 +104,10 @@ jobs:
 
                   if npm view "${PACKAGE_NAME}@${PACKAGE_VERSION}" version 2>/dev/null; then
                       echo "exists=true" >> $GITHUB_OUTPUT
-                      echo "Version ${PACKAGE_VERSION} already exists on npm"
+                      echo "⚠️  Version ${PACKAGE_VERSION} already exists on npm"
                   else
                       echo "exists=false" >> $GITHUB_OUTPUT
-                      echo "Version ${PACKAGE_VERSION} does not exist on npm"
+                      echo "✅ Version ${PACKAGE_VERSION} does not exist on npm, will publish"
                   fi
 
             # Publish using OIDC (Trusted Publishers)
@@ -127,3 +115,9 @@ jobs:
             - name: Publish to npm (Trusted Publishers)
               if: steps.check-npm-version.outputs.exists == 'false'
               run: npm publish --access public
+
+            - name: Skip publishing (version exists)
+              if: steps.check-npm-version.outputs.exists == 'true'
+              run: |
+                  echo "⚠️  Skipping npm publish: version already exists on npm registry"
+                  echo "This is not an error - the package version was already published."
