@@ -24,7 +24,12 @@ AI 協作工作流程插件 - 透過 Copilot MCP 實現 Claude 與 Copilot 的�
    npm install -g @anthropic-ai/claude-code
    ```
 
-2. **Copilot CLI 認證**
+2. **Copilot MCP Server** (⚠️ 必須在安裝插件前先安裝)
+   ```bash
+   npm install -g @aykahshi/copilot-mcp-server
+   ```
+
+3. **Copilot CLI 認證**
    ```bash
    npm install -g @github/copilot
    copilot /login
@@ -34,10 +39,24 @@ AI 協作工作流程插件 - 透過 Copilot MCP 實現 Claude 與 Copilot 的�
 
 ## 🚀 安裝
 
-### 快速安裝
+### 步驟 1：安裝 Copilot MCP Server（必需）
+
+**⚠️ 重要：必須先全域安裝此套件！**
+
+```bash
+npm install -g @aykahshi/copilot-mcp-server
+```
+
+驗證安裝：
+```bash
+copilot-mcp-server --version
+```
+
+### 步驟 2：安裝插件
+
 ```bash
 # 添加插件市場
-/plugin marketplace add Aykahshi/copilot-flow-plugin
+/plugin marketplace add Aykahshi/copilot-mcp-tool
 
 # 安裝插件
 /plugin install copilot-flow
@@ -119,22 +138,51 @@ copilot-flow 專注於工作流程自動化，不包含內建的會話記錄功�
 
 ## 🛠️ 故障排除
 
-### 驗證 MCP 連接
-```bash
-node scripts/check-mcp.js
-```
-
 ### 常見問題
 
-**Q: 命令不顯示在 help 中？**
-A: 檢查插件是否正確安裝，重啟 Claude Code
+**Q: MCP Server 狀態顯示 "failed"？**
 
-**Q: MCP 連接失敗？**
-A: 運行 `node scripts/check-mcp.js` 診斷
+A: 請確保您已經全域安裝 `@aykahshi/copilot-mcp-server`：
+```bash
+npm install -g @aykahshi/copilot-mcp-server
+
+# 驗證安裝
+copilot-mcp-server --version
+```
+
+然後完全重啟 Claude Desktop。
+
+**Q: 命令不顯示在 help 中？**
+
+A: 
+1. 檢查插件是否正確安裝：`/plugin list`
+2. 驗證 MCP server 已全域安裝
+3. 完全重啟 Claude Desktop
+
+**Q: "copilot-mcp-server: command not found" 錯誤？**
+
+A: MCP server 未安裝或不在 PATH 中：
+```bash
+# 全域安裝
+npm install -g @aykahshi/copilot-mcp-server
+
+# Windows 上可能需要重啟終端機/Claude Desktop
+# macOS/Linux 上確保 npm 全域 bin 在 PATH 中：
+export PATH="$PATH:$(npm config get prefix)/bin"
+```
 
 **Q: 工作流程卡住？**
+
 A: 刪除 `.claude/workflow-state.json` 重置
 
+**Q: 需要檢查 MCP 連接？**
+
+A: 直接運行 MCP server 進行測試：
+```bash
+copilot-mcp-server
+# 應該正常啟動，沒有錯誤
+# 按 Ctrl+C 退出
+```
 ## 📚 相關文檔
 
 - [更新日誌](CHANGELOG.md) - 版本更新記錄

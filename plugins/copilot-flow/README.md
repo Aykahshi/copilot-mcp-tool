@@ -26,7 +26,12 @@ AI collaboration workflow plugin - Implements automated collaborative developmen
    npm install -g @anthropic-ai/claude-code
    ```
 
-2. **Copilot CLI Authentication**
+2. **Copilot MCP Server** (⚠️ Must install before plugin)
+   ```bash
+   npm install -g @aykahshi/copilot-mcp-server
+   ```
+
+3. **Copilot CLI Authentication**
    ```bash
    npm install -g @github/copilot
    copilot /login
@@ -36,10 +41,24 @@ AI collaboration workflow plugin - Implements automated collaborative developmen
 
 ## 🚀 Installation
 
-### Quick Install
+### Step 1: Install Copilot MCP Server (Required)
+
+**⚠️ IMPORTANT: You must install this globally first!**
+
+```bash
+npm install -g @aykahshi/copilot-mcp-server
+```
+
+Verify installation:
+```bash
+copilot-mcp-server --version
+```
+
+### Step 2: Install Plugin
+
 ```bash
 # Add plugin marketplace
-/plugin marketplace add Aykahshi/copilot-flow-plugin
+/plugin marketplace add Aykahshi/copilot-mcp-tool
 
 # Install plugin
 /plugin install copilot-flow
@@ -122,24 +141,51 @@ The [claude-mem](https://github.com/thedotmack/claude-mem) plugin provides power
 
 ## 🛠️ Troubleshooting
 
-
-
-### Verify MCP Connection
-```bash
-node scripts/check-mcp.js
-```
-
 ### Common Issues
 
-**Q: Commands not showing in help?**
-A: Check if plugin is properly installed, restart Claude Code
+**Q: MCP Server status shows "failed"?**
 
-**Q: MCP connection failed?**
-A: Run `node scripts/check-mcp.js` for diagnosis
+A: Make sure you have installed `@aykahshi/copilot-mcp-server` globally:
+```bash
+npm install -g @aykahshi/copilot-mcp-server
+
+# Verify installation
+copilot-mcp-server --version
+```
+
+Then restart Claude Desktop completely.
+
+**Q: Commands not showing in help?**
+
+A: 
+1. Check if plugin is properly installed: `/plugin list`
+2. Verify MCP server is installed globally
+3. Restart Claude Desktop completely
+
+**Q: "copilot-mcp-server: command not found"?**
+
+A: The MCP server is not installed or not in PATH:
+```bash
+# Install globally
+npm install -g @aykahshi/copilot-mcp-server
+
+# On Windows, you may need to restart your terminal/Claude Desktop
+# On macOS/Linux, ensure npm global bin is in PATH:
+export PATH="$PATH:$(npm config get prefix)/bin"
+```
 
 **Q: Workflow stuck?**
+
 A: Delete `.claude/workflow-state.json` to reset
 
+**Q: Need to check MCP connection?**
+
+A: Run the MCP server directly to test:
+```bash
+copilot-mcp-server
+# Should start without errors
+# Press Ctrl+C to exit
+```
 ## 📚 Documentation
 
 - [Changelog](CHANGELOG.md) - Version update records

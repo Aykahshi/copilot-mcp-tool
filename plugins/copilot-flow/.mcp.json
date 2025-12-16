@@ -1,8 +1,7 @@
 {
   "mcpServers": {
     "copilot": {
-      "type": "stdio",
-      "command": "${CLAUDE_PLUGIN_ROOT}/scripts/mcp-server.cjs"
+      "command": "copilot-mcp-server"
     }
   }
 }

@@ -56,7 +56,6 @@ Automatically selects the best Copilot model based on task type:
 - `quick-test.js` - Quick structure test
 - `check-mcp.js` - MCP connection verification
 - `workflow-state.js` - Workflow state management
-- `mcp-server.cjs` - Cross-platform MCP server wrapper script
 
 ### Installation
 
