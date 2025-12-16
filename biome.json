@@ -39,6 +39,6 @@
     }
   },
   "files": {
-    "ignore": ["node_modules", "dist", "*.json", "*.md"]
+    "ignore": ["node_modules", "dist", "*.json", "*.md", "plugins/**"]
   }
 }
