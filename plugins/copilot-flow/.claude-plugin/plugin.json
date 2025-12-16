@@ -1,0 +1,29 @@
+{
+  "name": "copilot-flow",
+  "version": "0.1.0",
+  "description": "AI 協作工作流程插件 - 透過 Copilot MCP 實現 Claude 與 Copilot 的自動化協作開發流程",
+  "author": {
+    "name": "Zack Shi",
+    "email": "pshakya8751@gmail.com",
+    "url": "https://github.com/Aykahshi"
+  },
+  "repository": "https://github.com/Aykahshi/copilot-mcp-server",
+  "license": "MIT",
+  "commands": [
+    "./commands/copilot/analyze.md",
+    "./commands/copilot/deliver.md",
+    "./commands/copilot/implement.md",
+    "./commands/copilot/design.md",
+    "./commands/copilot/review.md"
+  ],
+  "agents": "./agents/workflow-orchestrator.md",
+  "mcpServers": "./.mcp.json",
+  "keywords": [
+    "copilot",
+    "ai workflow",
+    "claude code",
+    "github-copilot",
+    "automation",
+    "mcp"
+  ]
+}

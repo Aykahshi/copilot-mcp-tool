@@ -6,6 +6,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D22.0.0-brightgreen)](https://nodejs.org)
 
+[繁體中文](README-zh.md)
+
 </div>
 
 A Model Context Protocol (MCP) server that integrates GitHub Copilot CLI with MCP clients.
@@ -14,14 +16,12 @@ A Model Context Protocol (MCP) server that integrates GitHub Copilot CLI with MC
 >
 > Thanks to [@leonardommello](https://github.com/leonardommello/copilot-mcp-tool) for the original work. This is an actively maintained fork to keep the project up-to-date with the latest Copilot features and supported models.
 
-<img src=".github/img/github.svg" alt="GitHub Copilot MCP Server" /></i>
-
 ## Features
 
 - **9 Tools** - Interactive Copilot commands for coding assistance
 - **2 Resources** - Session history and management
-- **3 Prompts** - Workflow templates for common tasks
 - **Full MCP Support** - Compatible with Claude Desktop, Claude Code, Cline, and more
+- **Claude Code Plugin** - Claude Code plugin with built-in workflow
 - **Quick Commands** - Shortcut commands for rapid workflow (see below)
 
 ---
@@ -137,6 +137,30 @@ Use copilot-debug with code="console.log(messge);" and error="ReferenceError: me
 |----------|-----|-------------|
 | **session-history** | `copilot://session/{sessionId}/history` | Access conversation history for a session |
 | **sessions-list** | `copilot://sessions` | List all active sessions |
+
+---
+
+## 🧩 Plugins
+
+This repository includes ready-to-use plugins that extend functionality:
+
+### copilot-flow
+
+**AI Collaboration Workflow Plugin** - Automates a structured 5-stage development process between Claude and GitHub Copilot.
+
+**Features:**
+- 🔄 **5-Stage Workflow**: Analyze → Design → Implement → Review → Deliver
+- 🤖 **Smart Model Selection**: Automatically selects optimal Copilot models based on task type
+- 👀 **Preview Mode**: Shows execution plan before running
+- 🔄 **Recovery Mechanism**: Resume interrupted workflows via session ID
+
+**Quick Install:**
+```bash
+/plugin marketplace add Aykahshi/copilot-mcp-tool
+/plugin install copilot-flow
+```
+
+**Learn more**: [copilot-flow documentation](plugins/copilot-flow/README.md)
 
 ---
 
@@ -730,7 +754,7 @@ Select from available models:
 
 You can see all available models via copilot cli with `/model` command.
 
-**Unlimited Model (0x in Copilot usage)**: `gpt-5-mini` and `gpt-4.1` are available with unlimited usage for GitHub Copilot Pro and above subscriptions.
+**Unlimited Model (0x cost in Copilot usage)**: `gpt-5-mini` and `gpt-4.1` are available with unlimited usage for GitHub Copilot Pro and above subscriptions.
 
 Example:
 ```
