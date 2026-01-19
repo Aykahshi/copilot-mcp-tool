@@ -1,6 +1,6 @@
 {
     "name": "@aykahshi/copilot-mcp-server",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "description": "GitHub Copilot CLI integration for Model Context Protocol clients",
     "license": "MIT",
     "author": "Aykahshi",
