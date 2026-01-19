@@ -57,20 +57,21 @@
 ```
 
 可用的偏好設定：
-- `--prefer claude` (預設)：使用 Claude 模型（Sonnet 4.5、Opus 4.5、Haiku 4.5）
-- `--prefer gpt`：使用 GPT 模型（gpt-5.1-codex、gpt-5.1-codex-max、gpt-5.1-codex-mini、gpt-4.1）
+- `--prefer gpt` (預設)：使用 GPT 模型（gpt-5.2-codex、gpt-5-mini、gpt-4.1）
+- `--prefer claude`：使用 Claude 模型（Sonnet 4.5、Opus 4.5、Haiku 4.5）
+- `--prefer gemini`：使用 Gemini 模型（gemini-3-pro-preview）
 
 **依偏好設定的模型預設值：**
 
-| 工具 | `--prefer claude` | `--prefer gpt` |
-|------|-------------------|----------------|
-| ask-copilot | claude-sonnet-4.5 | gpt-5.1-codex-max |
-| copilot-explain | claude-sonnet-4.5 | gpt-5.1-codex |
-| copilot-suggest | claude-opus-4.5 | gpt-5.1-codex-max |
-| copilot-debug | claude-haiku-4.5 | gpt-5.1-codex-mini |
-| copilot-refactor | claude-haiku-4.5 | gpt-5.1-codex-mini |
-| copilot-review | gpt-4.1 | gpt-4.1 |
-| copilot-test-generate | claude-sonnet-4.5 | gpt-5.1-codex |
+| 工具 | `--prefer claude` | `--prefer gpt` | `--prefer gemini` |
+|------|-------------------|----------------|-------------------|
+| ask-copilot | claude-sonnet-4.5 | gpt-5.2-codex | gemini-3-pro-preview |
+| copilot-explain | claude-haiku-4.5 | gpt-5.1-codex-mini | claude-haiku-4.5 |
+| copilot-suggest | claude-opus-4.5 | gpt-5.2-codex | gemini-3-pro-preview |
+| copilot-debug | claude-haiku-4.5 | gpt-5.1-codex-mini | claude-haiku-4.5 |
+| copilot-refactor | claude-opus-4.5 | gpt-5.2 | gemini-3-pro-preview |
+| copilot-review | gpt-4.1 | gpt-4.1 | gpt-4.1 |
+| copilot-test-generate | claude-sonnet-4.5 | gpt-5.2-codex | gemini-3-pro-preview |
 
 > **注意：** 你仍然可以在個別工具呼叫中透過指定 `model` 參數來覆蓋預設模型。
 
@@ -427,6 +428,7 @@ Zed 內建原生 MCP 支援。
 - `gpt-5.1-codex-max`
 - `gpt-5.1-codex-mini`
 - `gpt-5.2`
+- `gpt-5.2-codex`
 - `gpt-5-mini`
 - `gpt-4.1`
 - `gemini-3-pro-preview`

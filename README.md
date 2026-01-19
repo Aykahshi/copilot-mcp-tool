@@ -59,20 +59,21 @@ You can use the `--prefer` flag to choose between Claude or GPT models as defaul
 ```
 
 Available preferences:
-- `--prefer claude` (default): Uses Claude models (Sonnet 4.5, Opus 4.5, Haiku 4.5)
-- `--prefer gpt`: Uses GPT models (gpt-5.1-codex, gpt-5.1-codex-max, gpt-5.1-codex-mini, gpt-4.1)
+- `--prefer gpt` (default): Uses GPT models (gpt-5.2-codex, gpt-5-mini, gpt-4.1)
+- `--prefer claude`: Uses Claude models (Sonnet 4.5, Opus 4.5, Haiku 4.5)
+- `--prefer gemini`: Uses Gemini models (gemini-3-pro-preview)
 
 **Model defaults by preference:**
 
-| Tool | `--prefer claude` | `--prefer gpt` |
-|------|-------------------|----------------|
-| ask-copilot | claude-sonnet-4.5 | gpt-5.1-codex-max |
-| copilot-explain | claude-sonnet-4.5 | gpt-5.1-codex |
-| copilot-suggest | claude-opus-4.5 | gpt-5.1-codex-max |
-| copilot-debug | claude-haiku-4.5 | gpt-5.1-codex-mini |
-| copilot-refactor | claude-haiku-4.5 | gpt-5.1-codex-mini |
-| copilot-review | gpt-4.1 | gpt-4.1 |
-| copilot-test-generate | claude-sonnet-4.5 | gpt-5.1-codex |
+| Tool | `--prefer claude` | `--prefer gpt` | `--prefer gemini` |
+|------|-------------------|----------------|-------------------|
+| ask-copilot | claude-sonnet-4.5 | gpt-5.2-codex | gemini-3-pro-preview |
+| copilot-explain | claude-haiku-4.5 | gpt-5.1-codex-mini | claude-haiku-4.5 |
+| copilot-suggest | claude-opus-4.5 | gpt-5.2-codex | gemini-3-pro-preview |
+| copilot-debug | claude-haiku-4.5 | gpt-5.1-codex-mini | claude-haiku-4.5 |
+| copilot-refactor | claude-opus-4.5 | gpt-5.2 | gemini-3-pro-preview |
+| copilot-review | gpt-4.1 | gpt-4.1 | gpt-4.1 |
+| copilot-test-generate | claude-sonnet-4.5 | gpt-5.2-codex | gemini-3-pro-preview |
 
 > **Note:** You can still override the default model for any tool by specifying the `model` parameter in individual tool calls.
 
@@ -748,6 +749,7 @@ Select from available models:
 - `gpt-5.1-codex-max`
 - `gpt-5.1-codex-mini`
 - `gpt-5.2`
+- `gpt-5.2-codex`
 - `gpt-5-mini`
 - `gpt-4.1`
 - `gemini-3-pro-preview`

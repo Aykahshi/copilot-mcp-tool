@@ -93,7 +93,7 @@ c-flow:deliver   # 交付成果
 - **Google 生態系** (Flutter/Angular/GCP/Firebase) → `gemini-3-pro-preview`
 - **代碼快速 QA** → `claude-haiku-4.5`
 - **非代碼快速 QA** → `gpt-5-mini`
-- **高難度複雜任務** → `gpt-5.1-codex`
+- **高難度複雜任務** → `gpt-5.2-codex`
 
 ## 工作流程
 

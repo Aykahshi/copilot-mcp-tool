@@ -18,6 +18,7 @@ export const SUPPORTED_MODELS = [
   'gpt-5.1-codex-mini',
   'gpt-5.1-codex-max',
   'gpt-5.2',
+  'gpt-5.2-codex',
   'gpt-5-mini',
   'gpt-4.1',
   'gemini-3-pro-preview'
@@ -28,7 +29,7 @@ export type SupportedModel = (typeof SUPPORTED_MODELS)[number];
 /**
  * Model preference types
  */
-export type ModelPreference = 'claude' | 'gpt';
+export type ModelPreference = 'claude' | 'gpt' | 'gemini';
 
 /**
  * Default models configuration by preference
@@ -36,28 +37,37 @@ export type ModelPreference = 'claude' | 'gpt';
 export const MODEL_DEFAULTS = {
   claude: {
     ask: 'claude-sonnet-4.5',
-    explain: 'claude-sonnet-4.5',
+    explain: 'claude-haiku-4.5',
     suggest: 'claude-opus-4.5',
     debug: 'claude-haiku-4.5',
-    refactor: 'claude-haiku-4.5',
+    refactor: 'claude-opus-4.5',
     review: 'gpt-4.1',
     testGenerate: 'claude-sonnet-4.5'
   },
   gpt: {
-    ask: 'gpt-5.1-codex-max',
-    explain: 'gpt-5.1-codex',
-    suggest: 'gpt-5.1-codex-max',
+    ask: 'gpt-5.2-codex',
+    explain: 'gpt-5.1-codex-mini',
+    suggest: 'gpt-5.2-codex',
     debug: 'gpt-5.1-codex-mini',
-    refactor: 'gpt-5.1-codex-mini',
+    refactor: 'gpt-5.2',
     review: 'gpt-4.1',
-    testGenerate: 'gpt-5.1-codex'
+    testGenerate: 'gpt-5.2-codex'
+  },
+  gemini: {
+    ask: 'gemini-3-pro-preview',
+    explain: 'claude-haiku-4.5',
+    suggest: 'gemini-3-pro-preview',
+    debug: 'claude-haiku-4.5',
+    refactor: 'gemini-3-pro-preview',
+    review: 'gpt-4.1',
+    testGenerate: 'gemini-3-pro-preview'
   }
 } as const;
 
 /**
  * Global model preference (can be set at startup)
  */
-let currentModelPreference: ModelPreference = 'claude';
+let currentModelPreference: ModelPreference = 'gpt';
 
 /**
  * Set the global model preference

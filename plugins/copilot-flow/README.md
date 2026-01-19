@@ -95,7 +95,7 @@ c-flow:deliver   # Deliver results
 - **Google Ecosystem** (Flutter/Angular/GCP/Firebase etc.) → `gemini-3-pro-preview`
 - **Quick Code QA** → `claude-haiku-4.5`
 - **Non-code Quick QA** → `gpt-5-mini`
-- **High-Difficulty Complex Tasks** → `gpt-5.1-codex`, `gpt-5.1-codex-max`
+- **High-Difficulty Complex Tasks** → `gpt-5.2-codex`
 
 ## Workflow
 

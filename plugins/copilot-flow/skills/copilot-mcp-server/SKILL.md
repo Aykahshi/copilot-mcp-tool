@@ -130,7 +130,7 @@ Choose from available models based on task complexity:
 - Best for: Concept explanations, general technical questions, documentation queries
 - No usage limits for Pro+ subscribers
 
-### gpt-5.1-codex / gpt-5.1-codex-max
+### gpt-5.2-codex
 - Best for: Complex algorithms, system refactoring, large feature development
 - Advanced code generation
 
