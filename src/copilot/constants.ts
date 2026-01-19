@@ -118,6 +118,6 @@ export const TIMEOUTS = {
  */
 export const SERVER_INFO = {
   name: 'copilot-mcp-server',
-  version: '2.1.1',
+  version: '2.1.2',
   description: 'GitHub Copilot CLI integration with full MCP capabilities'
 } as const;
