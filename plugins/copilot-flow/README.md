@@ -58,7 +58,7 @@ copilot-mcp-server --version
 
 ```bash
 # Add plugin marketplace
-/plugin marketplace add Aykahshi/copilot-mcp-tool
+/plugin marketplace add Poorgramer-Zack/copilot-mcp-tool
 
 # Install plugin
 /plugin install copilot-flow
@@ -91,8 +91,7 @@ c-flow:deliver   # Deliver results
 
 ## Model Selection Rules
 
-- **Architecture Design and Code Issues** → `claude-opus-4.5`, `claude-sonnet-4.5`
-- **Google Ecosystem** (Flutter/Angular/GCP/Firebase etc.) → `gemini-3-pro-preview`
+- **Architecture Design and Code Issues** → `claude-sonnet-4.6`
 - **Quick Code QA** → `claude-haiku-4.5`
 - **Non-code Quick QA** → `gpt-5-mini`
 - **High-Difficulty Complex Tasks** → `gpt-5.2-codex`

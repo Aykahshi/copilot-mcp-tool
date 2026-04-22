@@ -9,7 +9,7 @@ This extension integrates GitHub Copilot CLI with Gemini CLI through the Model C
 - **`ask-copilot`**: General-purpose coding assistant for help, debugging, and architecture questions.
   - `prompt` (required): Your question or request
   - `context` (optional): Additional context (code, error messages, etc.)
-  - `model` (optional): AI model to use (default: claude-sonnet-4.5)
+  - `model` (optional): AI model to use (default: claude-sonnet-4.6)
   - `allowAllTools` (optional): Allow all tools (default: true)
 
 - **`copilot-explain`**: Get detailed explanations of code snippets.
@@ -55,16 +55,19 @@ You can specify any of these models for tools that accept a `model` parameter:
 
 | Model | Description |
 |-------|-------------|
-| `claude-sonnet-4.5` | Claude Sonnet 4.5 (default) |
-| `claude-opus-4.5` | Claude Opus 4.5 (most capable) |
+| `auto` | Auto model selection |
+| `claude-sonnet-4.6` | Claude Sonnet 4.6 (default) |
+| `claude-sonnet-4.5` | Claude Sonnet 4.5 |
 | `claude-haiku-4.5` | Claude Haiku 4.5 (fastest) |
-| `gpt-5.1-codex` | GPT 5.1 Codex |
-| `gpt-5.1-codex-max` | GPT 5.1 Codex Max (most capable GPT) |
-| `gpt-5.1-codex-mini` | GPT 5.1 Codex Mini (fastest GPT) |
+| `claude-opus-4.7` | Claude Opus 4.7 (most capable Claude) |
+| `claude-sonnet-4` | Claude Sonnet 4 |
+| `gpt-5.4` | GPT 5.4 (default GPT preference) |
+| `gpt-5.3-codex` | GPT 5.3 Codex |
+| `gpt-5.2-codex` | GPT 5.2 Codex |
 | `gpt-5.2` | GPT 5.2 |
+| `gpt-5.4-mini` | GPT 5.4 mini |
 | `gpt-4.1` | GPT 4.1 (unlimited usage) |
 | `gpt-5-mini` | GPT 5 Mini (unlimited usage) |
-| `gemini-3-pro-preview` | Gemini 3 Pro Preview |
 
 > **Tip**: `gpt-5-mini` and `gpt-4.1` have unlimited usage for GitHub Copilot Pro subscribers.
 
@@ -135,7 +138,7 @@ Use copilot-review with code="..." and focusAreas=["security", "performance"]
 
 ### Use a specific model
 ```
-Use ask-copilot with model="claude-opus-4.5" and prompt="Design a microservices architecture for an e-commerce platform"
+Use ask-copilot with model="claude-opus-4.7" and prompt="Design a microservices architecture for an e-commerce platform"
 ```
 
 ## Troubleshooting
@@ -159,5 +162,5 @@ gemini mcp list
 
 ## Related Projects
 
-- [copilot-mcp-tool](https://github.com/Aykahshi/copilot-mcp-tool) - Main repository
+- [copilot-mcp-tool](https://github.com/Poorgramer-Zack/copilot-mcp-tool) - Main repository
 - [copilot-flow plugin](plugins/copilot-flow/) - Automated 5-stage development workflow

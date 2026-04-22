@@ -56,7 +56,7 @@ copilot-mcp-server --version
 
 ```bash
 # 添加插件市場
-/plugin marketplace add Aykahshi/copilot-mcp-tool
+/plugin marketplace add Poorgramer-Zack/copilot-mcp-tool
 
 # 安裝插件
 /plugin install copilot-flow
@@ -89,8 +89,7 @@ c-flow:deliver   # 交付成果
 
 ## 模型選擇規則
 
-- **架構設計與代碼問題** → `claude-sonnet-4.5`
-- **Google 生態系** (Flutter/Angular/GCP/Firebase) → `gemini-3-pro-preview`
+- **架構設計與代碼問題** → `claude-sonnet-4.6`
 - **代碼快速 QA** → `claude-haiku-4.5`
 - **非代碼快速 QA** → `gpt-5-mini`
 - **高難度複雜任務** → `gpt-5.2-codex`

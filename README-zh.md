@@ -57,21 +57,20 @@
 ```
 
 可用的偏好設定：
- `--prefer gpt` (預設)：使用 GPT 模型（gpt-5.3-codex、gpt-5.2-codex、gpt-5-mini、gpt-4.1）
- `--prefer claude`：使用 Claude 模型（Sonnet 4.6、Opus 4.6、Opus 4.6-fast、Sonnet 4）
-- `--prefer gemini`：使用 Gemini 模型（gemini-3-pro-preview）
+ `--prefer claude` (預設)：所有工具預設都使用 `claude-sonnet-4.6`。可用 Claude 模型：Sonnet 4.6、Sonnet 4.5、Haiku 4.5、Opus 4.7、Sonnet 4
+ `--prefer gpt`：所有工具預設都使用 `gpt-5.4`。可用 GPT 模型：gpt-5.4、gpt-5.3-codex、gpt-5.2-codex、gpt-5.2、gpt-5.4-mini、gpt-5-mini、gpt-4.1
 
 **依偏好設定的模型預設值：**
 
-| 工具 | `--prefer claude` | `--prefer gpt` | `--prefer gemini` |
-|------|-------------------|----------------|-------------------|
-| ask-copilot | claude-sonnet-4.6 | gpt-5.3-codex | gemini-3-pro-preview |
-| copilot-explain | claude-sonnet-4.6 | gpt-5.3-codex | gemini-3-pro-preview |
-| copilot-suggest | claude-sonnet-4.6 | gpt-5.3-codex | gemini-3-pro-preview |
-| copilot-debug | claude-opus-4.6 | gpt-5.3-codex | gemini-3-pro-preview |
-| copilot-refactor | claude-opus-4.6 | gpt-5.3-codex | gemini-3-pro-preview |
-| copilot-review | claude-opus-4.6 | gpt-5.3-codex | gemini-3-pro-preview |
-| copilot-test-generate | claude-opus-4.6 | gpt-5.3-codex | gemini-3-pro-preview |
+| 工具 | `--prefer claude` | `--prefer gpt` |
+|------|-------------------|----------------|
+| ask-copilot | claude-sonnet-4.6 | gpt-5.4 |
+| copilot-explain | claude-sonnet-4.6 | gpt-5.4 |
+| copilot-suggest | claude-sonnet-4.6 | gpt-5.4 |
+| copilot-debug | claude-sonnet-4.6 | gpt-5.4 |
+| copilot-refactor | claude-sonnet-4.6 | gpt-5.4 |
+| copilot-review | claude-sonnet-4.6 | gpt-5.4 |
+| copilot-test-generate | claude-sonnet-4.6 | gpt-5.4 |
 
 > **注意：** 你仍然可以在個別工具呼叫中透過指定 `model` 參數來覆蓋預設模型。
 
@@ -155,7 +154,7 @@ console.log("Hello, World!");
 
 **快速安裝：**
 ```bash
-/plugin marketplace add Aykahshi/copilot-mcp-tool
+/plugin marketplace add Poorgramer-Zack/copilot-mcp-tool
 /plugin install copilot-flow
 ```
 
@@ -420,23 +419,19 @@ Zed 內建原生 MCP 支援。
 ## AI 模型
 
 從可用模型中選擇：
-- `claude-sonnet-4.6`（Claude 偏好預設）
-- `claude-sonnet-4.5`
-- `claude-haiku-4.5`
-- `claude-opus-4.6`
-- `claude-opus-4.6-fast`
-- `claude-opus-4.5`
-- `claude-sonnet-4`
+- `auto`
+- `gpt-5.4`（目前 Copilot CLI picker 預設）
 - `gpt-5.3-codex`
-- `gpt-5.1`
-- `gpt-5.1-codex`
-- `gpt-5.1-codex-max`
-- `gpt-5.1-codex-mini`
-- `gpt-5.2`
 - `gpt-5.2-codex`
+- `gpt-5.2`
+- `gpt-5.4-mini`
 - `gpt-5-mini`
 - `gpt-4.1`
-- `gemini-3-pro-preview`
+- `claude-sonnet-4.6`（本 MCP 的 Claude 預設）
+- `claude-sonnet-4.5`
+- `claude-haiku-4.5`
+- `claude-opus-4.7`
+- `claude-sonnet-4`
 
 你可以透過 copilot cli 的 `/model` 命令查看所有可用模型。
 
@@ -444,7 +439,7 @@ Zed 內建原生 MCP 支援。
 
 範例：
 ```
-使用 ask-copilot，模型為「claude-opus-4.5」，提示為「解釋 async/await」
+使用 ask-copilot，模型為「claude-sonnet-4.6」，提示為「解釋 async/await」
 使用 ask-copilot，模型為「gpt-5-mini」，提示為「快速程式碼審查」
 ```
 
@@ -534,8 +529,8 @@ A：你在對話中分享的程式碼會透過 Claude 的 MCP 協定傳送到 Co
 
 ```bash
 # 複製儲存庫
-git clone https://github.com/Aykahshi/copilot-mcp-server.git
-cd copilot-mcp-server
+git clone https://github.com/Poorgramer-Zack/copilot-mcp-tool.git
+cd copilot-mcp-tool
 
 # 安裝依賴
 npm install
@@ -580,8 +575,8 @@ npm test
 ## 連結
 
 - 📦 **npm 套件**：https://www.npmjs.com/package/@aykahshi/copilot-mcp-server
-- 💻 **GitHub 儲存庫**：https://github.com/Aykahshi/copilot-mcp-tool
-- 🐛 **回報問題**：https://github.com/Aykahshi/copilot-mcp-tool/issues
+- 💻 **GitHub 儲存庫**：https://github.com/Poorgramer-Zack/copilot-mcp-tool
+- 🐛 **回報問題**：https://github.com/Poorgramer-Zack/copilot-mcp-tool/issues
 - 🤖 **GitHub Copilot**：https://github.com/features/copilot
 - 🔗 **Model Context Protocol**：https://modelcontextprotocol.io
 

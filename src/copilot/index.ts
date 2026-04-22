@@ -24,10 +24,10 @@ function parseArgs(): { prefer: ModelPreference } {
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--prefer' && i + 1 < args.length) {
       const value = args[i + 1].toLowerCase();
-      if (value === 'claude' || value === 'gpt' || value === 'gemini') {
+      if (value === 'claude' || value === 'gpt') {
         prefer = value;
       } else {
-        console.error(`⚠️  Invalid --prefer value: ${value}. Using default: gpt`);
+        console.error(`⚠️  Invalid --prefer value: ${value}. Using default: claude`);
       }
       break;
     }

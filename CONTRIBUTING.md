@@ -114,7 +114,7 @@ While the project doesn't have comprehensive automated tests yet, you should:
 
 ## Reporting Issues
 
-- Use the [GitHub issue tracker](https://github.com/Aykahshi/copilot-mcp-tool/issues)
+- Use the [GitHub issue tracker](https://github.com/Poorgramer-Zack/copilot-mcp-tool/issues)
 - Search existing issues before creating a new one
 - Provide clear reproduction steps and environment details
 

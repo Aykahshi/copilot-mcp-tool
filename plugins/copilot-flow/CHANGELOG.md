@@ -66,7 +66,7 @@ Automatically selects the best Copilot model based on task type:
 
 ```bash
 # Add plugin marketplace
-/plugin marketplace add Aykahshi/copilot-mcp-tool
+/plugin marketplace add Poorgramer-Zack/copilot-mcp-tool
 
 # Install plugin
 /plugin install copilot-flow
@@ -77,6 +77,6 @@ Automatically selects the best Copilot model based on task type:
 
 ### Links
 
-- **Repository**: https://github.com/Aykahshi/copilot-mcp-tool
+- **Repository**: https://github.com/Poorgramer-Zack/copilot-mcp-tool
 - **Plugin Path**: `plugins/copilot-flow`
 - **License**: MIT

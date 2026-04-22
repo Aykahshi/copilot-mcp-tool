@@ -35,8 +35,8 @@ Execute the architecture design stage of the workflow. This stage uses Copilot M
 
 3. **Select Appropriate Model**
    Automatically select based on task type:
-   - Architecture Design → `claude-sonnet-4.5`
-   - Google Ecosystem → `gemini-3-pro-preview`
+   - Architecture Design → `claude-sonnet-4.6`
+   - Google Ecosystem → `claude-sonnet-4.6`
    - Complex System Design → `gpt-5.2-codex`
 
 4. **Call Copilot for Design**

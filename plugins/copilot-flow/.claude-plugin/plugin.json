@@ -5,9 +5,9 @@
   "author": {
     "name": "Zack Shi",
     "email": "pshakya8751@gmail.com",
-    "url": "https://github.com/Aykahshi"
+    "url": "https://github.com/Poorgramer-Zack"
   },
-  "repository": "https://github.com/Aykahshi/copilot-mcp-server",
+  "repository": "https://github.com/Poorgramer-Zack/copilot-mcp-tool",
   "license": "MIT",
   "commands": [
     "./commands/copilot/analyze.md",

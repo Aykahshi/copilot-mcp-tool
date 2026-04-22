@@ -10,23 +10,19 @@ import { join } from 'node:path';
  * Update this list when new models become available.
  */
 export const SUPPORTED_MODELS = [
+  'auto',
+  'gpt-5.4',
+  'gpt-5.3-codex',
+  'gpt-5.2-codex',
+  'gpt-5.2',
+  'gpt-5.4-mini',
+  'gpt-5-mini',
+  'gpt-4.1',
   'claude-sonnet-4.6',
   'claude-sonnet-4.5',
   'claude-haiku-4.5',
-  'claude-opus-4.6',
-  'claude-opus-4.6-fast',
-  'claude-opus-4.5',
-  'claude-sonnet-4',
-  'gpt-5.3-codex',
-  'gpt-5.1',
-  'gpt-5.1-codex',
-  'gpt-5.1-codex-mini',
-  'gpt-5.1-codex-max',
-  'gpt-5.2',
-  'gpt-5.2-codex',
-  'gpt-5-mini',
-  'gpt-4.1',
-  'gemini-3-pro-preview'
+  'claude-opus-4.7',
+  'claude-sonnet-4'
 ] as const;
 
 export type SupportedModel = (typeof SUPPORTED_MODELS)[number];
@@ -34,7 +30,7 @@ export type SupportedModel = (typeof SUPPORTED_MODELS)[number];
 /**
  * Model preference types
  */
-export type ModelPreference = 'claude' | 'gpt' | 'gemini';
+export type ModelPreference = 'claude' | 'gpt';
 
 /**
  * Default models configuration by preference
@@ -44,35 +40,26 @@ export const MODEL_DEFAULTS = {
     ask: 'claude-sonnet-4.6',
     explain: 'claude-sonnet-4.6',
     suggest: 'claude-sonnet-4.6',
-    debug: 'claude-opus-4.6',
-    refactor: 'claude-opus-4.6',
-    review: 'claude-opus-4.6',
-    testGenerate: 'claude-opus-4.6'
+    debug: 'claude-sonnet-4.6',
+    refactor: 'claude-sonnet-4.6',
+    review: 'claude-sonnet-4.6',
+    testGenerate: 'claude-sonnet-4.6'
   },
   gpt: {
-    ask: 'gpt-5.3-codex',
-    explain: 'gpt-5.3-codex',
-    suggest: 'gpt-5.3-codex',
-    debug: 'gpt-5.3-codex',
-    refactor: 'gpt-5.3-codex',
-    review: 'gpt-5.3-codex',
-    testGenerate: 'gpt-5.3-codex'
-  },
-  gemini: {
-    ask: 'gemini-3-pro-preview',
-    explain: 'gemini-3-pro-preview',
-    suggest: 'gemini-3-pro-preview',
-    debug: 'gemini-3-pro-preview',
-    refactor: 'gemini-3-pro-preview',
-    review: 'gemini-3-pro-preview',
-    testGenerate: 'gemini-3-pro-preview'
+    ask: 'gpt-5.4',
+    explain: 'gpt-5.4',
+    suggest: 'gpt-5.4',
+    debug: 'gpt-5.4',
+    refactor: 'gpt-5.4',
+    review: 'gpt-5.4',
+    testGenerate: 'gpt-5.4'
   }
 } as const;
 
 /**
  * Global model preference (can be set at startup)
  */
-let currentModelPreference: ModelPreference = 'gpt';
+let currentModelPreference: ModelPreference = 'claude';
 
 /**
  * Set the global model preference
@@ -123,6 +110,6 @@ export const TIMEOUTS = {
  */
 export const SERVER_INFO = {
   name: 'copilot-mcp-server',
-  version: '2.1.2',
+  version: '2.2.0',
   description: 'GitHub Copilot CLI integration with full MCP capabilities'
 } as const;

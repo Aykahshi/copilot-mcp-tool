@@ -59,21 +59,20 @@ You can use the `--prefer` flag to choose between Claude or GPT models as defaul
 ```
 
 Available preferences:
- `--prefer gpt` (default): Uses GPT models (gpt-5.3-codex, gpt-5.2-codex, gpt-5-mini, gpt-4.1)
- `--prefer claude`: Uses Claude models (Sonnet 4.6, Opus 4.6, Opus 4.6-fast, Sonnet 4)
-- `--prefer gemini`: Uses Gemini models (gemini-3-pro-preview)
+ `--prefer claude` (default): Uses `claude-sonnet-4.6` for all tool defaults. Available Claude models: Sonnet 4.6, Sonnet 4.5, Haiku 4.5, Opus 4.7, Sonnet 4
+ `--prefer gpt`: Uses `gpt-5.4` for all tool defaults. Available GPT models: gpt-5.4, gpt-5.3-codex, gpt-5.2-codex, gpt-5.2, gpt-5.4-mini, gpt-5-mini, gpt-4.1
 
 **Model defaults by preference:**
 
-| Tool | `--prefer claude` | `--prefer gpt` | `--prefer gemini` |
-|------|-------------------|----------------|-------------------|
-| ask-copilot | claude-sonnet-4.6 | gpt-5.3-codex | gemini-3-pro-preview |
-| copilot-explain | claude-sonnet-4.6 | gpt-5.3-codex | gemini-3-pro-preview |
-| copilot-suggest | claude-sonnet-4.6 | gpt-5.3-codex | gemini-3-pro-preview |
-| copilot-debug | claude-opus-4.6 | gpt-5.3-codex | gemini-3-pro-preview |
-| copilot-refactor | claude-opus-4.6 | gpt-5.3-codex | gemini-3-pro-preview |
-| copilot-review | claude-opus-4.6 | gpt-5.3-codex | gemini-3-pro-preview |
-| copilot-test-generate | claude-opus-4.6 | gpt-5.3-codex | gemini-3-pro-preview |
+| Tool | `--prefer claude` | `--prefer gpt` |
+|------|-------------------|----------------|
+| ask-copilot | claude-sonnet-4.6 | gpt-5.4 |
+| copilot-explain | claude-sonnet-4.6 | gpt-5.4 |
+| copilot-suggest | claude-sonnet-4.6 | gpt-5.4 |
+| copilot-debug | claude-sonnet-4.6 | gpt-5.4 |
+| copilot-refactor | claude-sonnet-4.6 | gpt-5.4 |
+| copilot-review | claude-sonnet-4.6 | gpt-5.4 |
+| copilot-test-generate | claude-sonnet-4.6 | gpt-5.4 |
 
 > **Note:** You can still override the default model for any tool by specifying the `model` parameter in individual tool calls.
 
@@ -157,7 +156,7 @@ This repository includes ready-to-use plugins that extend functionality:
 
 **Quick Install:**
 ```bash
-/plugin marketplace add Aykahshi/copilot-mcp-tool
+/plugin marketplace add Poorgramer-Zack/copilot-mcp-tool
 /plugin install copilot-flow
 ```
 
@@ -741,23 +740,19 @@ Use copilot-session-history to view conversation history
 ## AI Models
 
 Select from available models:
-- `claude-sonnet-4.6` (default for Claude preference)
-- `claude-sonnet-4.5`
-- `claude-haiku-4.5`
-- `claude-opus-4.6`
-- `claude-opus-4.6-fast`
-- `claude-opus-4.5`
-- `claude-sonnet-4`
+- `auto`
+- `gpt-5.4` (default in current Copilot CLI picker)
 - `gpt-5.3-codex`
-- `gpt-5.1`
-- `gpt-5.1-codex`
-- `gpt-5.1-codex-max`
-- `gpt-5.1-codex-mini`
-- `gpt-5.2`
 - `gpt-5.2-codex`
+- `gpt-5.2`
+- `gpt-5.4-mini`
 - `gpt-5-mini`
 - `gpt-4.1`
-- `gemini-3-pro-preview`
+- `claude-sonnet-4.6` (default for Claude preference in this MCP)
+- `claude-sonnet-4.5`
+- `claude-haiku-4.5`
+- `claude-opus-4.7`
+- `claude-sonnet-4`
 
 You can see all available models via copilot cli with `/model` command.
 
@@ -765,7 +760,7 @@ You can see all available models via copilot cli with `/model` command.
 
 Example:
 ```
-Use ask-copilot with model="claude-opus-4.5" and prompt="Explain async/await"
+Use ask-copilot with model="claude-sonnet-4.6" and prompt="Explain async/await"
 Use ask-copilot with model="gpt-5-mini" and prompt="Quick code review"
 ```
 
@@ -867,8 +862,8 @@ A: No, both GitHub Copilot and MCP clients require internet connection.
 
 ```bash
 # Clone the repository
-git clone https://github.com/Aykahshi/copilot-mcp-server.git
-cd copilot-mcp-server
+git clone https://github.com/Poorgramer-Zack/copilot-mcp-tool.git
+cd copilot-mcp-tool
 
 # Install dependencies
 npm install
@@ -931,8 +926,8 @@ Learn more at [modelcontextprotocol.io](https://modelcontextprotocol.io)
 ## Links
 
 - 📦 **npm Package**: https://www.npmjs.com/package/@aykahshi/copilot-mcp-server
-- 💻 **GitHub Repository**: https://github.com/Aykahshi/copilot-mcp-tool
-- 🐛 **Report Issues**: https://github.com/Aykahshi/copilot-mcp-tool/issues
+- 💻 **GitHub Repository**: https://github.com/Poorgramer-Zack/copilot-mcp-tool
+- 🐛 **Report Issues**: https://github.com/Poorgramer-Zack/copilot-mcp-tool/issues
 - 🤖 **GitHub Copilot**: https://github.com/features/copilot
 - 🔗 **Model Context Protocol**: https://modelcontextprotocol.io
 
@@ -953,6 +948,6 @@ Forked and maintained by **Aykahshi** ([@Aykahshi](https://github.com/Aykahshi))
 
 **Built with ❤️ using the [Model Context Protocol](https://modelcontextprotocol.io)**
 
-If this project helped you, please consider giving it a ⭐ on [GitHub](https://github.com/Aykahshi/copilot-mcp-tool)!
+If this project helped you, please consider giving it a ⭐ on [GitHub](https://github.com/Poorgramer-Zack/copilot-mcp-tool)!
 
 </div>

@@ -2,7 +2,7 @@
   "name": "copilot-flow",
   "metadata": {
     "description": "AI Collaboration Workflow Plugin - Automating Collaborative Development Between Claude and Copilot via Copilot MCP",
-    "homepage": "https://github.com/Aykahshi/copilot-mcp-tool"
+    "homepage": "https://github.com/Poorgramer-Zack/copilot-mcp-tool"
   },
   "owner": {
     "name": "Zack Shi",
@@ -17,13 +17,13 @@
       "author": {
         "name": "Zack Shi",
         "email": "pshakya8751@gmail.com",
-        "url": "https://github.com/Aykahshi"
+            "url": "https://github.com/Poorgramer-Zack"
       },
       "skills": [
         "./skills/copilot-flow-integration",
         "./skills/copilot-mcp-server"
       ],
-      "homepage": "https://github.com/Aykahshi/copilot-mcp-server",
+        "homepage": "https://github.com/Poorgramer-Zack/copilot-mcp-tool",
       "category": "development",
       "keywords": [
         "copilot",

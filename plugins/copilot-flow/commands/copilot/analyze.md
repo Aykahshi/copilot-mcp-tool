@@ -70,7 +70,7 @@ The output will include:
 - API endpoint requirements analysis
 - Security constraint identification
 - Structured prompt preparation
-- Recommended architecture design model (claude-opus-4.5)
+- Recommended architecture design model (claude-sonnet-4.6)
 
 ## Important Notes
 
